@@ -78,10 +78,10 @@ FROM fortune_companies;
 
 SELECT company_size, COUNT(*)AS company_count
 FROM(SELECT
-CASE WHEN employees >=550000 THEN "Large size"
-WHEN employees >= 200000 THEN "Medium size"
-WHEN employees >=10000 THEN "Small size"
-ELSE "Very Small" END AS"company_size"
+CASE WHEN employees >=550000 THEN 'Large size'
+WHEN employees >= 200000 THEN 'Medium size'
+WHEN employees >=10000 THEN 'Small size'
+ELSE 'Very Small' END AS'company_size'
 FROM fortune_companies)
 AS categorized_companies
 GROUP BY company_size
@@ -112,6 +112,18 @@ Which company in the Retail industry has the least revenue, and what's their rev
 SELECT company_name, MIN(revenue)
 FROM fortune_companies
 WHERE industry=Retail;
+
+
+#-- Assign all the companies in the Healthcare industry as "mother friendly workplace", "acceptable", or "abysmal" based on the maternity leave offered.
+
+SELECT company_name,
+CASE 
+	WHEN maternity_leave_weeks>=10 THEN 'mother friendly workplace'
+	WHEN maternity_leave_weeks>=8 THEN 'acceptable'
+	ELSE 'abysmal'
+END AS mother_friendliness   
+FROM fortune_companies
+WHERE industry='Healthcare';
 
 
 
